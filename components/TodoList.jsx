@@ -1,43 +1,47 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TodoForm from './TodoForm';
+import Todo from './Todo';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-    // if (!todo.text || /^\s*/.test(todo.text)) {
-    //   return;
-    // }
-    const newTodos = [todo, ...todos];
-    setTodos(newTodos);
-    console.log(...todos);
+    setTodos([...todos, todo]);
   };
+
+  const completeTodo = (completeId) => () => {
+    console.log('click', completeId);
+    setTodos(todos.filter((todo) => todo.id !== completeId));
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>What's the Plan fot Today?</Text>
-      <TodoForm onSubmitEditing={addTodo} onPress={addTodo} />
+      <TodoForm addTodo={addTodo} />
+      {todos.map((todo, index) => (
+        <View key={index}>
+          <Todo {...todo} completeTodo={completeTodo(todo.id)} />
+        </View>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 80,
+    paddingHorizontal: 20,
+    width: '100%',
+    backgroundColor: '#7aa899',
+  },
   title: {
-    fontSize: 24,
+    color: '#3b3a3d',
+    fontSize: 26,
     fontWeight: 700,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  buttonAdd: {
-    alignItems: 'center',
-    backgroundColor: 'grey',
-    padding: 10,
-  },
-  buttonText: {
-    color: '#ffffff',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
 });
 

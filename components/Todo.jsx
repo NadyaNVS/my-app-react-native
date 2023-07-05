@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+} from 'react-native';
 
-const Todo = ({ text, completeTodo }) => {
+const Todo = ({ text, completeTodo, onEditTodo }) => {
+  const [edit, setEdit] = useState(false);
+  const [todoTitle, setTodoTitle] = useState('');
+
+  const activeEditTodo = () => {
+    setEdit(true);
+    setTodoTitle(text);
+  };
+  const endEditTodo = () => {
+    setEdit(false);
+    onEditTodo(todoTitle);
+  };
+  const onEditHendler = (text) => {
+    console.log(text);
+    setTodoTitle(text);
+  };
+
   const iconClose = <Icon name="close" size={25} color="#ffffff" />;
   const iconEdit = <Icon name="edit" size={26} color="#ffffff" />;
 
@@ -13,10 +35,23 @@ const Todo = ({ text, completeTodo }) => {
   return (
     <View style={styles.container}>
       <View style={styles.todoContainer}>
-        <Text style={styles.todoText}>{text}</Text>
+        {edit ? (
+          <TextInput
+            style={styles.todoEdit}
+            value={todoTitle}
+            onBlur={endEditTodo}
+            autoFocus
+            onChangeText={onEditHendler}
+          ></TextInput>
+        ) : (
+          <Text style={styles.todoText}>{text}</Text>
+        )}
+
         <View style={styles.icons}>
           <TouchableOpacity onPress={onCloseTodo}>{iconClose}</TouchableOpacity>
-          <TouchableOpacity>{iconEdit}</TouchableOpacity>
+          <TouchableOpacity onPress={activeEditTodo}>
+            {iconEdit}
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -45,8 +80,12 @@ const styles = StyleSheet.create({
     color: '#27263D',
     fontSize: 16,
   },
-  complete: {
-    backgroundColor: 'orange',
+  todoEdit: {
+    width: '80%',
+    color: '#27263D',
+    fontSize: 16,
+    padding: 10,
+    outlineStyle: 'none',
   },
   icons: {
     display: 'flex',

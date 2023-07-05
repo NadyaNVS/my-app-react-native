@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: '#27263D',
     fontSize: 16,
+    outlineStyle: 'none',
   },
   buttonAdd: {
     justifyContent: 'center',

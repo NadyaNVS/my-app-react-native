@@ -21,7 +21,6 @@ const Todo = ({ text, completeTodo, onEditTodo }) => {
     onEditTodo(todoTitle);
   };
   const onEditHendler = (text) => {
-    console.log(text);
     setTodoTitle(text);
   };
 
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
     width: '80%',
     color: '#27263D',
     fontSize: 16,
-    padding: 10,
     outlineStyle: 'none',
   },
   icons: {

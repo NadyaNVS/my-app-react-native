@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import TodoForm from '../components/TodoForm';
-import Todo from '../components/Todo';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import TodoForm from "../components/TodoForm";
+import Todo from "../components/Todo";
 
 const TodoList = () => {
+  console.log("TodoList component rendered");
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
@@ -11,7 +12,7 @@ const TodoList = () => {
   };
 
   const deleteTodo = (deleteId) => () => {
-    console.log('click', deleteId);
+    console.log("click", deleteId);
     setTodos(todos.filter((todo) => todo.id !== deleteId));
   };
 
@@ -52,14 +53,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 80,
     paddingHorizontal: 20,
-    width: '100%',
-    backgroundColor: '#7aa899',
+    width: "100%",
+    backgroundColor: "#7aa899",
   },
   title: {
-    color: '#3b3a3d',
+    color: "#3b3a3d",
     fontSize: 26,
     fontWeight: 700,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 20,
   },
 });

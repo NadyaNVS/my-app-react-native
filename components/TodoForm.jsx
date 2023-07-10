@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,10 +8,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
-} from 'react-native';
+} from "react-native";
 
 const TodoForm = (props) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const onTextChange = (text) => {
     setInput(text);
@@ -22,11 +22,11 @@ const TodoForm = (props) => {
       id: Math.floor(Math.random() * 10000),
       text: input,
     });
-    setInput('');
+    setInput("");
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.wrapper}
     >
       <TextInput
@@ -45,9 +45,9 @@ const TodoForm = (props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
     marginBottom: 20,
   },
   input: {
@@ -57,21 +57,21 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
-    borderColor: '#27263d',
+    borderColor: "#27263d",
     borderWidth: 1,
-    color: '#27263D',
+    color: "#27263D",
     fontSize: 16,
-    outlineStyle: 'none',
+    outlineStyle: "none",
   },
   buttonAdd: {
-    justifyContent: 'center',
-    backgroundColor: '#27263d',
+    justifyContent: "center",
+    backgroundColor: "#27263d",
     padding: 10,
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,
   },
   buttonText: {
-    color: '#7aa899',
+    color: "#7aa899",
   },
 });
 

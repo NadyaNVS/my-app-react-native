@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   Text,
   TextInput,
-} from 'react-native';
+} from "react-native";
 
 const Todo = ({ text, completeTodo, onEditTodo }) => {
+  console.log("TodoItem component rendered");
   const [edit, setEdit] = useState(false);
-  const [todoTitle, setTodoTitle] = useState('');
+  const [todoTitle, setTodoTitle] = useState("");
 
   const activeEditTodo = () => {
     setEdit(true);
@@ -59,15 +60,15 @@ const Todo = ({ text, completeTodo, onEditTodo }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   todoContainer: {
-    backgroundColor: '#6e6c78',
+    backgroundColor: "#6e6c78",
     borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
     flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -75,21 +76,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   todoText: {
-    width: '80%',
-    color: '#27263D',
+    width: "80%",
+    color: "#27263D",
     fontSize: 16,
   },
   todoEdit: {
-    width: '80%',
-    color: '#27263D',
+    width: "80%",
+    color: "#27263D",
     fontSize: 16,
-    outlineStyle: 'none',
+    outlineStyle: "none",
   },
   icons: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
     gap: 7,
     padding: 10,
   },

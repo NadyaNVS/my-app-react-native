@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import {
 let rerenderCount = 0;
 
 const TodoForm = React.memo(({ addTodo }) => {
-  console.log(`InputForm component rendered: ${++rerenderCount}`);
+  console.log(`TodoForm component rendered: ${++rerenderCount}`);
 
   const [input, setInput] = useState("");
 

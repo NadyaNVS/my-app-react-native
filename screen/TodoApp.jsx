@@ -6,7 +6,7 @@ import TodoForm from "../components/TodoForm";
 let rerenderCount = 0;
 
 const TodoApp = () => {
-  console.log(`TodoForm component rendered: ${++rerenderCount}`);
+  console.log(`TodoApp component rendered: ${++rerenderCount}`);
   const [todos, setTodos] = useState([]);
 
   const addTodo = useCallback(

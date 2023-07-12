@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {
   StyleSheet,
@@ -8,55 +8,72 @@ import {
   TextInput,
 } from "react-native";
 
-const Todo = ({ text, completeTodo, onEditTodo }) => {
-  console.log("TodoItem component rendered");
-  const [edit, setEdit] = useState(false);
-  const [todoTitle, setTodoTitle] = useState("");
+let rerenderCount = 0;
 
-  const activeEditTodo = () => {
-    setEdit(true);
-    setTodoTitle(text);
-  };
-  const endEditTodo = () => {
-    setEdit(false);
-    onEditTodo(todoTitle);
-  };
-  const onEditHendler = (text) => {
-    setTodoTitle(text);
-  };
+const Todo = React.memo(
+  ({ text, completeTodo, onEditTodo }) => {
+    console.log(`Todo component rendered: ${++rerenderCount}`);
 
-  const iconClose = <Icon name="close" size={25} color="#ffffff" />;
-  const iconEdit = <Icon name="edit" size={26} color="#ffffff" />;
+    const [edit, setEdit] = useState(false);
+    const [todoTitle, setTodoTitle] = useState("");
 
-  const onCloseTodo = () => {
-    completeTodo();
-  };
+    const iconClose = <Icon name="close" size={25} color="#ffffff" />;
+    const iconEdit = <Icon name="edit" size={26} color="#ffffff" />;
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.todoContainer}>
-        {edit ? (
-          <TextInput
-            style={styles.todoEdit}
-            value={todoTitle}
-            onBlur={endEditTodo}
-            autoFocus
-            onChangeText={onEditHendler}
-          ></TextInput>
-        ) : (
-          <Text style={styles.todoText}>{text}</Text>
-        )}
+    const activeEditTodo = () => {
+      setEdit(true);
+      setTodoTitle(text);
+    };
 
-        <View style={styles.icons}>
-          <TouchableOpacity onPress={onCloseTodo}>{iconClose}</TouchableOpacity>
-          <TouchableOpacity onPress={activeEditTodo}>
-            {iconEdit}
-          </TouchableOpacity>
+    const endEditTodo = () => {
+      setEdit(false);
+      onEditTodo(todoTitle);
+    };
+
+    const onEditHendler = (text) => {
+      setTodoTitle(text);
+    };
+
+    const onCloseTodo = () => {
+      completeTodo();
+    };
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.todoContainer}>
+          {edit ? (
+            <TextInput
+              style={styles.todoEdit}
+              value={todoTitle}
+              onBlur={endEditTodo}
+              autoFocus
+              onChangeText={onEditHendler}
+            ></TextInput>
+          ) : (
+            <Text style={styles.todoText}>{text}</Text>
+          )}
+
+          <View style={styles.icons}>
+            <TouchableOpacity onPress={onCloseTodo}>
+              {iconClose}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={activeEditTodo}>
+              {iconEdit}
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+  // (prevProps, nextProps) => {
+  //   // console.log("prev:", prevProps, "new:", nextProps);
+  //   if (nextProps.text === prevProps.text && nextProps.id !== prevProps.id) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -95,5 +112,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+// function areEqual(prevProps, nextProps) {
+//   return prevProps.id === nextProps.id && prevProps.text === nextProps.text;
+// }
 
 export default Todo;

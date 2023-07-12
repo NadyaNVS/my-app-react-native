@@ -5,12 +5,14 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
   Keyboard,
 } from "react-native";
 
-const TodoForm = (props) => {
+let rerenderCount = 0;
+
+const TodoForm = React.memo(({ addTodo }) => {
+  console.log(`InputForm component rendered: ${++rerenderCount}`);
+
   const [input, setInput] = useState("");
 
   const onTextChange = (text) => {
@@ -18,17 +20,15 @@ const TodoForm = (props) => {
   };
   const onHendleSubmit = () => {
     Keyboard.dismiss();
-    props.addTodo({
+    addTodo({
       id: Math.floor(Math.random() * 10000),
       text: input,
     });
     setInput("");
   };
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.wrapper}
-    >
+    <View style={styles.wrapper}>
       <TextInput
         style={styles.input}
         placeholder="Add a todo"
@@ -39,9 +39,9 @@ const TodoForm = (props) => {
       <TouchableOpacity style={styles.buttonAdd} onPress={onHendleSubmit}>
         <Text style={styles.buttonText}>Add todo</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   wrapper: {
